@@ -7,8 +7,15 @@ func _ready():
 	HUD.connect("changed",self,"_on_HUD_changed")
 
 func play_music():
-	pass
+	if HUD.audio_music and playing:
+		pass
+	elif HUD.audio_music and not playing:
+		playing = true
+	else:
+		playing = false
 
 func _on_HUD_changed():
 	play_music()
 
+func _on_Music_finished():
+	play_music()

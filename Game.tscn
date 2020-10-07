@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Paddle/Paddle.gd" type="Script" id=1]
 [ext_resource path="res://Ball/Ball_Container.gd" type="Script" id=2]
@@ -12,6 +12,9 @@
 [ext_resource path="res://Ball/Trail_Container.gd" type="Script" id=10]
 [ext_resource path="res://Camera/WorldEnvironment.gd" type="Script" id=11]
 [ext_resource path="res://Paddle/Face.gd" type="Script" id=12]
+[ext_resource path="res://Assets/eye.png" type="Texture" id=13]
+[ext_resource path="res://Assets/mouth.png" type="Texture" id=14]
+[ext_resource path="res://Assets/pupil.png" type="Texture" id=15]
 [ext_resource path="res://Assets/Datalegreya-Thin.otf" type="DynamicFontData" id=16]
 [ext_resource path="res://Audio/Music.gd" type="Script" id=17]
 
@@ -102,6 +105,15 @@ hue_variation_random = 0.25
 size = 36
 font_data = ExtResource( 16 )
 
+[sub_resource type="Environment" id=17]
+dof_blur_near_enabled = true
+dof_blur_near_distance = 1.3
+glow_enabled = true
+glow_bloom = 0.15
+glow_blend_mode = 0
+glow_hdr_threshold = 0.0
+glow_bicubic_upscale = true
+
 [node name="Game" type="Node2D"]
 
 [node name="Background" type="ColorRect" parent="."]
@@ -160,6 +172,32 @@ shape = SubResource( 8 )
 [node name="Face" type="Node2D" parent="Paddle_Container/Paddle"]
 script = ExtResource( 12 )
 
+[node name="Left_eye" type="Sprite" parent="Paddle_Container/Paddle/Face"]
+position = Vector2( -35, -10 )
+texture = ExtResource( 13 )
+
+[node name="Right_eye" type="Sprite" parent="Paddle_Container/Paddle/Face"]
+position = Vector2( 35, -10 )
+texture = ExtResource( 13 )
+
+[node name="Pupil_left" type="Node2D" parent="Paddle_Container/Paddle/Face"]
+position = Vector2( -35, -10 )
+
+[node name="Sprite" type="Sprite" parent="Paddle_Container/Paddle/Face/Pupil_left"]
+position = Vector2( 10, 0 )
+texture = ExtResource( 15 )
+
+[node name="Pupil_right" type="Node2D" parent="Paddle_Container/Paddle/Face"]
+position = Vector2( 35, -10 )
+
+[node name="Sprite" type="Sprite" parent="Paddle_Container/Paddle/Face/Pupil_right"]
+position = Vector2( 10, 0 )
+texture = ExtResource( 15 )
+
+[node name="Mouth" type="Sprite" parent="Paddle_Container/Paddle/Face"]
+position = Vector2( 0, 20 )
+texture = ExtResource( 14 )
+
 [node name="Particles2D" type="Particles2D" parent="Paddle_Container"]
 position = Vector2( 507, 700 )
 emitting = false
@@ -196,6 +234,7 @@ __meta__ = {
 }
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 17 )
 script = ExtResource( 11 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
